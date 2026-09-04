@@ -17,7 +17,7 @@
             background-color: #f8f9fa;
             color: #333;
             scroll-behavior: smooth;
-            padding-top: 80px; /* Space for fixed nav */
+            padding-top: 80px;
         }
 
         /* Navigation Bar */
@@ -173,6 +173,7 @@
             background-color: #007bff;
             color: white;
         }
+
         .add-cart-btn:hover {
             background-color: #0056b3;
         }
@@ -181,6 +182,7 @@
             background-color: #ffc107;
             color: #333;
         }
+
         .buy-now-btn:hover {
             background-color: #e0a800;
         }
@@ -282,6 +284,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Main Navigation Bar -->
@@ -289,169 +292,699 @@
         <div class="nav-links" id="navbar">
             <!-- Navigation links injected by JS -->
         </div>
+
         <button class="cart-btn" onclick="toggleCartModal(true)">
             🛒 Cart (<span id="cart-count">0</span>)
         </button>
     </nav>
+
 
     <!-- Main Content Area -->
     <main id="content-container">
         <!-- Category sections injected by JS -->
     </main>
 
+
     <!-- Cart Modal Overlay -->
     <div class="modal-overlay" id="cart-modal">
+
         <div class="modal-content">
+
             <div class="modal-header">
+
                 <h3>Your Cart Items</h3>
-                <button class="close-btn" onclick="toggleCartModal(false)">&times;</button>
+
+                <button
+                    class="close-btn"
+                    onclick="toggleCartModal(false)">
+                    &times;
+                </button>
+
             </div>
+
             <div id="cart-items-container">
                 <p>Your cart is empty.</p>
             </div>
-            <div class="cart-total" id="cart-total-price">Total: $0.00</div>
-            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+
+            <div
+                class="cart-total"
+                id="cart-total-price">
+                Total: $0.00
+            </div>
+
+            <button
+                class="checkout-btn"
+                onclick="checkout()">
+                Proceed to Checkout
+            </button>
+
         </div>
+
     </div>
 
+
     <footer>
-        <p>&copy; 2026 Category Showcase App. All rights reserved.</p>
+        <p>
+            &copy; 2026 Category Showcase App.
+            All rights reserved.
+        </p>
     </footer>
 
+
     <script>
-        // Data structure containing 6 categories, each with 10 items
+
+        /*
+         * =========================================================
+         * CATEGORY DATA
+         * =========================================================
+         */
+
         const categoriesData = [
+
             { id: "electronics", name: "Electronics" },
+
             { id: "clothing", name: "Clothing" },
+
             { id: "home", name: "Home & Kitchen" },
+
             { id: "books", name: "Books" },
+
             { id: "sports", name: "Sports" },
-            { id: "beauty", name: "Beauty" }
+
+            { id: "beauty", name: "Beauty" },
+
+
+            /* NEW CATEGORIES */
+
+            { id: "toys", name: "Toys & Games" },
+
+            { id: "groceries", name: "Groceries" },
+
+            { id: "footwear", name: "Footwear" },
+
+            { id: "automotive", name: "Automotive" },
+
+            { id: "jewellery", name: "Jewellery" },
+
+            { id: "stationery", name: "Stationery" }
+
         ];
 
-        let cart = []; // Array to store added items
 
-        const navbar = document.getElementById("navbar");
-        const contentContainer = document.getElementById("content-container");
+        /*
+         * =========================================================
+         * 10 ITEMS FOR EVERY CATEGORY
+         * =========================================================
+         */
 
-        // Function to initialize the app
+        const categoryItems = {
+
+
+            /* ================= ELECTRONICS ================= */
+
+            electronics: [
+                "Laptop",
+                "Smartphone",
+                "Tablet",
+                "Headphones",
+                "Smart Watch",
+                "Bluetooth Speaker",
+                "Keyboard",
+                "Wireless Mouse",
+                "Digital Camera",
+                "Power Bank"
+            ],
+
+
+            /* ================= CLOTHING ================= */
+
+            clothing: [
+                "T-Shirt",
+                "Jeans",
+                "Formal Shirt",
+                "Jacket",
+                "Hoodie",
+                "Sweater",
+                "Shorts",
+                "Track Pants",
+                "Saree",
+                "Kurta"
+            ],
+
+
+            /* ================= HOME & KITCHEN ================= */
+
+            home: [
+                "Dining Table",
+                "Sofa",
+                "Bed Sheet",
+                "Curtains",
+                "Coffee Maker",
+                "Mixer Grinder",
+                "Dinner Set",
+                "Wall Clock",
+                "Table Lamp",
+                "Storage Box"
+            ],
+
+
+            /* ================= BOOKS ================= */
+
+            books: [
+                "Java Programming",
+                "Python Programming",
+                "JavaScript Guide",
+                "HTML & CSS",
+                "Spring Boot",
+                "Data Structures",
+                "Database Fundamentals",
+                "Computer Networks",
+                "Software Engineering",
+                "Web Development"
+            ],
+
+
+            /* ================= SPORTS ================= */
+
+            sports: [
+                "Football",
+                "Cricket Bat",
+                "Cricket Ball",
+                "Tennis Racket",
+                "Basketball",
+                "Badminton Racket",
+                "Yoga Mat",
+                "Skipping Rope",
+                "Gym Gloves",
+                "Sports Shoes"
+            ],
+
+
+            /* ================= BEAUTY ================= */
+
+            beauty: [
+                "Face Wash",
+                "Moisturizer",
+                "Sunscreen",
+                "Shampoo",
+                "Conditioner",
+                "Body Lotion",
+                "Lip Balm",
+                "Perfume",
+                "Face Cream",
+                "Hair Oil"
+            ],
+
+
+            /* ================= TOYS & GAMES ================= */
+
+            toys: [
+                "Remote Control Car",
+                "Building Blocks",
+                "Toy Train",
+                "Teddy Bear",
+                "Puzzle Game",
+                "Toy Robot",
+                "Doll House",
+                "Board Game",
+                "Action Figure",
+                "Educational Kit"
+            ],
+
+
+            /* ================= GROCERIES ================= */
+
+            groceries: [
+                "Rice",
+                "Wheat Flour",
+                "Sugar",
+                "Salt",
+                "Cooking Oil",
+                "Tea",
+                "Coffee",
+                "Biscuits",
+                "Pasta",
+                "Breakfast Cereal"
+            ],
+
+
+            /* ================= FOOTWEAR ================= */
+
+            footwear: [
+                "Running Shoes",
+                "Casual Shoes",
+                "Formal Shoes",
+                "Sneakers",
+                "Sandals",
+                "Slippers",
+                "Boots",
+                "Sports Shoes",
+                "Loafers",
+                "Flip Flops"
+            ],
+
+
+            /* ================= AUTOMOTIVE ================= */
+
+            automotive: [
+                "Car Cover",
+                "Car Vacuum Cleaner",
+                "Air Freshener",
+                "Tyre Inflator",
+                "Dashboard Camera",
+                "Car Phone Holder",
+                "Seat Cushion",
+                "Car Cleaning Kit",
+                "Emergency Kit",
+                "Sun Shade"
+            ],
+
+
+            /* ================= JEWELLERY ================= */
+
+            jewellery: [
+                "Gold Necklace",
+                "Silver Necklace",
+                "Diamond Ring",
+                "Gold Ring",
+                "Bracelet",
+                "Bangle",
+                "Earrings",
+                "Pendant",
+                "Anklet",
+                "Jewellery Box"
+            ],
+
+
+            /* ================= STATIONERY ================= */
+
+            stationery: [
+                "Notebook",
+                "Ball Pen",
+                "Pencil",
+                "Eraser",
+                "Sharpener",
+                "Marker",
+                "Highlighter",
+                "Geometry Box",
+                "Sticky Notes",
+                "File Folder"
+            ]
+
+        };
+
+
+        let cart = [];
+
+
+        const navbar =
+            document.getElementById("navbar");
+
+        const contentContainer =
+            document.getElementById(
+                "content-container"
+            );
+
+
+        /*
+         * =========================================================
+         * INITIALIZE APPLICATION
+         * =========================================================
+         */
+
         function initApp() {
+
             categoriesData.forEach(cat => {
-                // 1. Create Navigation Link
-                const navLink = document.createElement("a");
-                navLink.href = `#${cat.id}`;
-                navLink.textContent = cat.name;
+
+
+                /* ===============================
+                   CREATE NAVIGATION LINK
+                   =============================== */
+
+                const navLink =
+                    document.createElement("a");
+
+                navLink.href =
+                    `#${cat.id}`;
+
+                navLink.textContent =
+                    cat.name;
+
                 navbar.appendChild(navLink);
 
-                // 2. Create Category Section
-                const section = document.createElement("section");
-                section.id = cat.id;
-                section.className = "category-section";
 
-                const heading = document.createElement("h2");
-                heading.textContent = cat.name;
+                /* ===============================
+                   CREATE CATEGORY SECTION
+                   =============================== */
+
+                const section =
+                    document.createElement("section");
+
+                section.id =
+                    cat.id;
+
+                section.className =
+                    "category-section";
+
+
+                const heading =
+                    document.createElement("h2");
+
+                heading.textContent =
+                    cat.name;
+
                 section.appendChild(heading);
 
-                // 3. Create Item Grid
-                const grid = document.createElement("div");
-                grid.className = "item-grid";
 
-                // Generate 10 items per category
+                /* ===============================
+                   CREATE ITEM GRID
+                   =============================== */
+
+                const grid =
+                    document.createElement("div");
+
+                grid.className =
+                    "item-grid";
+
+
+                /*
+                 * Generate 10 items
+                 */
+
                 for (let i = 1; i <= 10; i++) {
-                    const card = document.createElement("div");
-                    card.className = "item-card";
 
-                    const price = parseFloat((Math.random() * 50 + 10).toFixed(2));
-                    const itemName = `${cat.name} Item ${i}`;
+
+                    const card =
+                        document.createElement("div");
+
+                    card.className =
+                        "item-card";
+
+
+                    /*
+                     * Generate price
+                     */
+
+                    const price =
+                        parseFloat(
+                            (
+                                Math.random() * 50 + 10
+                            ).toFixed(2)
+                        );
+
+
+                    /*
+                     * Get actual item name
+                     */
+
+                    const itemName =
+                        categoryItems[cat.id][i - 1];
+
+
+                    /*
+                     * Create card
+                     */
 
                     card.innerHTML = `
-                        <div class="item-img">Image ${i}</div>
-                        <div class="item-title">${itemName}</div>
-                        <div class="item-price">$${price}</div>
-                        <div class="card-buttons">
-                            <button class="btn add-cart-btn" onclick="addToCart('${itemName}', ${price})">Add to Cart</button>
-                            <button class="btn buy-now-btn" onclick="buyNow('${itemName}', ${price})">Buy Now</button>
+
+                        <div class="item-img">
+                            ${cat.name}
                         </div>
+
+                        <div class="item-title">
+                            ${itemName}
+                        </div>
+
+                        <div class="item-price">
+                            $${price.toFixed(2)}
+                        </div>
+
+                        <div class="card-buttons">
+
+                            <button
+                                class="btn add-cart-btn"
+                                onclick="addToCart(
+                                    '${itemName}',
+                                    ${price}
+                                )">
+
+                                Add to Cart
+
+                            </button>
+
+
+                            <button
+                                class="btn buy-now-btn"
+                                onclick="buyNow(
+                                    '${itemName}',
+                                    ${price}
+                                )">
+
+                                Buy Now
+
+                            </button>
+
+                        </div>
+
                     `;
+
+
                     grid.appendChild(card);
+
                 }
 
+
                 section.appendChild(grid);
+
                 contentContainer.appendChild(section);
+
             });
+
         }
 
-        // Add item to cart array
+
+        /*
+         * =========================================================
+         * ADD ITEM TO CART
+         * =========================================================
+         */
+
         function addToCart(name, price) {
-            cart.push({ name, price });
+
+            cart.push({
+                name: name,
+                price: price
+            });
+
             updateCartUI();
-            alert(`${name} has been added to your cart!`);
+
+            alert(
+                `${name} has been added to your cart!`
+            );
+
         }
 
-        // Direct Buy Now function
+
+        /*
+         * =========================================================
+         * BUY NOW
+         * =========================================================
+         */
+
         function buyNow(name, price) {
-            alert(`🎉 Order placed successfully for ${name} at $${price.toFixed(2)}! Thank you for shopping.`);
+
+            alert(
+                `🎉 Order placed successfully for ` +
+                `${name} at $${price.toFixed(2)}! ` +
+                `Thank you for shopping.`
+            );
+
         }
 
-        // Remove item from cart array
+
+        /*
+         * =========================================================
+         * REMOVE ITEM
+         * =========================================================
+         */
+
         function removeFromCart(index) {
+
             cart.splice(index, 1);
+
             updateCartUI();
+
         }
 
-        // Checkout action from cart
+
+        /*
+         * =========================================================
+         * CHECKOUT
+         * =========================================================
+         */
+
         function checkout() {
+
             if (cart.length === 0) {
-                alert("Your cart is empty!");
+
+                alert(
+                    "Your cart is empty!"
+                );
+
                 return;
             }
-            alert("🎉 Order placed successfully for all items in your cart! Thank you.");
+
+
+            alert(
+                "🎉 Order placed successfully " +
+                "for all items in your cart! " +
+                "Thank you."
+            );
+
+
             cart = [];
+
             updateCartUI();
+
             toggleCartModal(false);
+
         }
 
-        // Update Cart Counter and Modal Elements
-        function updateCartUI() {
-            document.getElementById("cart-count").textContent = cart.length;
 
-            const cartContainer = document.getElementById("cart-items-container");
-            const totalContainer = document.getElementById("cart-total-price");
+        /*
+         * =========================================================
+         * UPDATE CART UI
+         * =========================================================
+         */
+
+        function updateCartUI() {
+
+            document.getElementById(
+                "cart-count"
+            ).textContent = cart.length;
+
+
+            const cartContainer =
+                document.getElementById(
+                    "cart-items-container"
+                );
+
+
+            const totalContainer =
+                document.getElementById(
+                    "cart-total-price"
+                );
+
 
             if (cart.length === 0) {
-                cartContainer.innerHTML = "<p>Your cart is empty.</p>";
-                totalContainer.textContent = "Total: $0.00";
+
+                cartContainer.innerHTML =
+                    "<p>Your cart is empty.</p>";
+
+                totalContainer.textContent =
+                    "Total: $0.00";
+
                 return;
             }
+
 
             cartContainer.innerHTML = "";
+
+
             let total = 0;
 
+
             cart.forEach((item, index) => {
+
                 total += item.price;
-                const itemDiv = document.createElement("div");
-                itemDiv.className = "cart-item";
+
+
+                const itemDiv =
+                    document.createElement("div");
+
+
+                itemDiv.className =
+                    "cart-item";
+
+
                 itemDiv.innerHTML = `
+
                     <div>
-                        <strong>${item.name}</strong><br>
-                        <span style="color: #007bff; font-size: 13px;">$${item.price.toFixed(2)}</span>
+
+                        <strong>
+                            ${item.name}
+                        </strong>
+
+                        <br>
+
+                        <span
+                            style="
+                            color: #007bff;
+                            font-size: 13px;
+                            ">
+
+                            $${item.price.toFixed(2)}
+
+                        </span>
+
                     </div>
-                    <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+
+
+                    <button
+                        class="remove-btn"
+                        onclick="removeFromCart(${index})">
+
+                        Remove
+
+                    </button>
+
                 `;
-                cartContainer.appendChild(itemDiv);
+
+
+                cartContainer.appendChild(
+                    itemDiv
+                );
+
             });
 
-            totalContainer.textContent = `Total: $${total.toFixed(2)}`;
+
+            totalContainer.textContent =
+                `Total: $${total.toFixed(2)}`;
+
         }
 
-        // Toggle Cart Modal Visibility
+
+        /*
+         * =========================================================
+         * CART MODAL
+         * =========================================================
+         */
+
         function toggleCartModal(open) {
-            const modal = document.getElementById("cart-modal");
-            modal.style.display = open ? "flex" : "none";
+
+            const modal =
+                document.getElementById(
+                    "cart-modal"
+                );
+
+            modal.style.display =
+                open ? "flex" : "none";
+
         }
 
-        // Run initialization on page load
-        window.addEventListener("DOMContentLoaded", initApp);
+
+        /*
+         * =========================================================
+         * RUN APP
+         * =========================================================
+         */
+
+        window.addEventListener(
+            "DOMContentLoaded",
+            initApp
+        );
+
     </script>
+
 </body>
 </html>
