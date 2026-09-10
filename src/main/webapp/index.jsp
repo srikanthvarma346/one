@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA - Premier Modern Lifestyle & Tech Store</title>
+    <title>AURA - Premier Modern Lifestyle, Tech & Gourmet Store</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -551,7 +551,6 @@
             color: var(--text-secondary);
         }
 
-        /* Horizontal Carousel Grid per category */
         .category-items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -614,6 +613,7 @@
             z-index: 2;
         }
 
+        .badge-food { background: rgba(239, 68, 68, 0.85); }
         .badge-electronics { background: rgba(59, 130, 246, 0.85); }
         .badge-fashion { background: rgba(236, 72, 153, 0.85); }
         .badge-home { background: rgba(16, 185, 129, 0.85); }
@@ -728,7 +728,6 @@
             transform: translateY(-2px);
         }
 
-        /* Empty Search State */
         .empty-state {
             display: none;
             text-align: center;
@@ -824,7 +823,6 @@
             border-color: rgba(239, 68, 68, 0.4);
         }
 
-        /* Cart Modal Elements */
         .cart-empty-box {
             text-align: center;
             padding: 60px 20px;
@@ -899,7 +897,6 @@
             margin-bottom: 20px;
         }
 
-        /* Checkout Form */
         .form-group {
             margin-bottom: 16px;
         }
@@ -928,14 +925,9 @@
             border-color: var(--accent-solid);
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
-            .app-workspace {
-                grid-template-columns: 1fr;
-            }
-            .category-sidebar {
-                position: static;
-            }
+            .app-workspace { grid-template-columns: 1fr; }
+            .category-sidebar { position: static; }
         }
 
         @media (max-width: 850px) {
@@ -944,22 +936,18 @@
             .hero-banner { padding: 32px; }
             .hero-bg-img { display: none; }
             .search-row { grid-template-columns: 1fr; }
-            .category-items-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
+            .category-items-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ATMOSPHERIC BACKGROUND IMAGE -->
     <div class="app-bg-wrapper">
         <img class="app-bg-image" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&q=80" alt="Atmospheric Background">
     </div>
     <div class="bg-overlay"></div>
 
-    <!-- TOAST NOTIFICATION FOR ACTIONS -->
     <div id="toast" class="toast-notification">
         <span id="toast-icon">🛒</span>
         <span id="toast-msg">Item added to cart!</span>
@@ -973,7 +961,6 @@
         </a>
 
         <div class="nav-actions">
-            <!-- TOP SETTINGS: LANGUAGE SELECTION -->
             <div class="settings-top-bar">
                 <label for="lang-select">🌐 <span id="lang-label">Lang:</span></label>
                 <select id="lang-select" class="lang-select">
@@ -995,11 +982,11 @@
 
         <!-- HERO SECTION -->
         <section class="hero-banner">
-            <img class="hero-bg-img" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1000&q=80" alt="Hero Background Item">
+            <img class="hero-bg-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1000&q=80" alt="Hero Background Item">
             <div class="hero-content">
                 <span class="hero-tag" id="hero-tag">Next-Gen Collection</span>
-                <h1 class="hero-title" id="hero-title">Elevate Your <span>Lifestyle</span> & Tech</h1>
-                <p class="hero-desc" id="hero-desc">Discover curated premium essentials built for performance, comfort, and unmatched modern aesthetics with 100+ items across categories.</p>
+                <h1 class="hero-title" id="hero-title">Elevate Your <span>Lifestyle</span>, Food & Tech</h1>
+                <p class="hero-desc" id="hero-desc">Discover curated gourmet delights, premium tech, and lifestyle essentials built for performance, comfort, and modern living.</p>
             </div>
         </section>
 
@@ -1008,12 +995,13 @@
             <div class="search-row">
                 <div class="search-box">
                     <svg class="search-icon-svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                    <input type="text" id="search-input" class="search-input" placeholder="Search across all 100+ items...">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search across all products and delicious food...">
                     <button id="clear-search-btn" class="clear-search-btn">✕</button>
                 </div>
 
                 <select id="category-select" class="select-input">
                     <option value="all">All Categories</option>
+                    <option value="food">Food & Gourmet</option>
                     <option value="electronics">Electronics</option>
                     <option value="fashion">Fashion</option>
                     <option value="home">Home & Living</option>
@@ -1024,684 +1012,457 @@
 
             <!-- SCROLLABLE QUICK CHIPS -->
             <div class="category-scroll">
-                <button class="chip active" data-category="all">All Products (100)</button>
-                <button class="chip" data-category="electronics">🎧 Electronics (20)</button>
-                <button class="chip" data-category="fashion">👔 Fashion (20)</button>
-                <button class="chip" data-category="home">🏠 Home & Living (20)</button>
-                <button class="chip" data-category="beauty">✨ Beauty (20)</button>
-                <button class="chip" data-category="sports">⚽ Sports (20)</button>
+                <button class="chip active" data-category="all">All Products</button>
+                <button class="chip" data-category="food">🍔 Food & Gourmet</button>
+                <button class="chip" data-category="electronics">🎧 Electronics</button>
+                <button class="chip" data-category="fashion">👔 Fashion</button>
+                <button class="chip" data-category="home">🏠 Home & Living</button>
+                <button class="chip" data-category="beauty">✨ Beauty</button>
+                <button class="chip" data-category="sports">⚽ Sports</button>
             </div>
         </section>
 
-        <!-- APP WORKSPACE: MENU SIDEBAR BESIDE PRODUCT LISTS -->
+        <!-- APP WORKSPACE -->
         <div class="app-workspace">
             
-            <!-- LEFT MENU ITEMS SIDEBAR -->
+            <!-- LEFT MENU SIDEBAR -->
             <aside class="category-sidebar">
                 <div class="sidebar-title" id="sidebar-title">📁 Menu Categories</div>
                 <ul class="menu-list" id="sidebar-menu">
                     <li>
                         <button class="menu-item-btn active" data-target="all">
                             <span>🌐 <span class="cat-label">All Categories</span></span>
-                            <span class="menu-item-count">100</span>
+                            <span class="menu-item-count" id="count-all">0</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-item-btn" data-target="food">
+                            <span>🍔 <span class="cat-label">Food & Gourmet</span></span>
+                            <span class="menu-item-count" id="count-food">0</span>
                         </button>
                     </li>
                     <li>
                         <button class="menu-item-btn" data-target="electronics">
                             <span>🎧 <span class="cat-label">Electronics</span></span>
-                            <span class="menu-item-count">20</span>
+                            <span class="menu-item-count" id="count-electronics">0</span>
                         </button>
                     </li>
                     <li>
                         <button class="menu-item-btn" data-target="fashion">
                             <span>👔 <span class="cat-label">Fashion</span></span>
-                            <span class="menu-item-count">20</span>
+                            <span class="menu-item-count" id="count-fashion">0</span>
                         </button>
                     </li>
                     <li>
                         <button class="menu-item-btn" data-target="home">
                             <span>🏠 <span class="cat-label">Home & Living</span></span>
-                            <span class="menu-item-count">20</span>
+                            <span class="menu-item-count" id="count-home">0</span>
                         </button>
                     </li>
                     <li>
                         <button class="menu-item-btn" data-target="beauty">
                             <span>✨ <span class="cat-label">Beauty & Care</span></span>
-                            <span class="menu-item-count">20</span>
+                            <span class="menu-item-count" id="count-beauty">0</span>
                         </button>
                     </li>
                     <li>
                         <button class="menu-item-btn" data-target="sports">
-                            <span>⚽ <span class="cat-label">Sports & Gear</span></span>
-                            <span class="menu-item-count">20</span>
+                            <span>⚽ <span class="cat-label">Sports & Fitness</span></span>
+                            <span class="menu-item-count" id="count-sports">0</span>
                         </button>
                     </li>
                 </ul>
             </aside>
 
-            <!-- RIGHT PRODUCTS CONTAINER (CATEGORIES ONE BY ONE) -->
-            <div class="products-area" id="products-container">
-                <!-- Dynamic categories with 20 items each populated by JavaScript -->
-            </div>
+            <!-- RIGHT PRODUCTS CONTAINER -->
+            <section class="products-area" id="products-container">
+            </section>
 
         </div>
 
     </main>
 
-    <!-- CART MODAL -->
+    <!-- SHOPPING CART MODAL -->
     <div class="modal-overlay" id="cart-modal">
         <div class="modal-box">
             <div class="modal-header">
-                <h3 id="cart-modal-title">Your Shopping Cart</h3>
+                <h3>🛒 Your Shopping Cart</h3>
                 <button class="close-modal-btn" id="close-cart-btn">✕</button>
             </div>
-            <div id="cart-items-wrapper">
-                <!-- Cart items rendered here -->
-            </div>
-            <div class="cart-footer">
+            <div id="cart-items-container"></div>
+            <div class="cart-footer" id="cart-footer">
                 <div class="cart-total-row">
-                    <span id="total-text">Total Amount:</span>
+                    <span>Total:</span>
                     <span id="cart-total-price">$0.00</span>
                 </div>
-                <button class="btn btn-add-cart" id="checkout-btn" style="width: 100%; height: 48px; font-size: 15px;">Proceed to Checkout</button>
+                <button class="btn btn-buy-now" style="width: 100%; height: 48px; font-size: 15px;" id="checkout-btn">
+                    Proceed to Checkout
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- BUY NOW QUICK CHECKOUT MODAL -->
-    <div class="modal-overlay" id="buynow-modal">
+    <!-- QUICK BUY / CHECKOUT MODAL -->
+    <div class="modal-overlay" id="checkout-modal">
         <div class="modal-box">
             <div class="modal-header">
                 <h3>⚡ Quick Checkout</h3>
-                <button class="close-modal-btn" id="close-buynow-btn">✕</button>
+                <button class="close-modal-btn" id="close-checkout-btn">✕</button>
             </div>
-            <div id="buynow-product-summary" style="margin-bottom: 20px;"></div>
-            <form id="buynow-form" onsubmit="event.preventDefault(); completeDirectPurchase();">
+            <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" class="form-control" required placeholder="John Doe">
                 </div>
                 <div class="form-group">
-                    <label>Shipping Address</label>
-                    <input type="text" class="form-control" required placeholder="123 Main Street, City">
+                    <label>Delivery Address / Room #</label>
+                    <input type="text" class="form-control" required placeholder="123 Main Street, Apt 4B">
                 </div>
                 <div class="form-group">
                     <label>Payment Method</label>
                     <select class="form-control">
                         <option>Credit / Debit Card</option>
-                        <option>UPI / Direct Wallet</option>
-                        <option>Cash on Delivery</option>
+                        <option>UPI / Net Banking</option>
+                        <option>Cash on Delivery (COD)</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-buy-now" style="width:100%; height:48px; font-size:15px; margin-top:10px;">Confirm & Pay Now</button>
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="btn btn-buy-now" style="width: 100%; height: 48px; font-size: 15px;">
+                        Confirm Order
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- JAVASCRIPT & DATA GENERATION -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        /* =========================================================
-           TRANSLATION DICTIONARY FOR MULTI-LANGUAGE
-        ========================================================= */
-        const translations = {
-            en: {
-                navStore: "STORE",
-                langLabel: "Lang:",
-                cartBtn: "Cart",
-                heroTag: "Next-Gen Collection",
-                heroTitle: "Elevate Your <span>Lifestyle</span> & Tech",
-                heroDesc: "Discover curated premium essentials built for performance, comfort, and unmatched modern aesthetics with 20 items per category.",
-                searchPlaceholder: "Search across all 100+ items...",
-                sidebarTitle: "📁 Menu Categories",
-                allCat: "All Categories",
-                electronics: "Electronics",
-                fashion: "Fashion",
-                home: "Home & Living",
-                beauty: "Beauty & Care",
-                sports: "Sports & Fitness",
-                addToCart: "Add to Cart",
-                buyNow: "Buy Now",
-                totalAmount: "Total Amount:",
-                cartTitle: "Your Shopping Cart"
-            },
-            te: {
-                navStore: "స్టోర్",
-                langLabel: "భాష:",
-                cartBtn: "కార్ట్",
-                heroTag: "నూతన శ్రేణి కలెక్షన్",
-                heroTitle: "మీ <span>జీవనశైలి</span> & టెక్నాలజీని పెంచుకోండి",
-                heroDesc: "ప్రతి కేటగిరీలో 20 నాణ్యమైన వస్తువులతో మెరుగైన షాపింగ్ అనుభవాన్ని పొందండి.",
-                searchPlaceholder: "100 కంటే ఎక్కువ వస్తువులలో శోధించండి...",
-                sidebarTitle: "📁 కేటగిరీ మెనూ",
-                allCat: "అన్ని రకాలు",
-                electronics: "ఎలక్ట్రానిక్స్",
-                fashion: "ఫ్యాషన్",
-                home: "హోమ్ & లివింగ్",
-                beauty: "బ్యూటీ & కేర్",
-                sports: "స్పోర్ట్స్ & ఫిట్‌నెస్",
-                addToCart: "కార్ట్‌కు జోడించు",
-                buyNow: "ఇప్పుడే కొనండి",
-                totalAmount: "మొత్తం ధర:",
-                cartTitle: "మీ షాపింగ్ కార్ట్"
-            },
-            hi: {
-                navStore: "स्टोर",
-                langLabel: "भाषा:",
-                cartBtn: "कार्ट",
-                heroTag: "नया संग्रह",
-                heroTitle: "अपनी <span>जीवनशैली</span> और तकनीक को सुधारें",
-                heroDesc: "प्रत्येक श्रेणी में 20 गुणवत्ता वाले उत्पादों के साथ बेहतरीन खरीदारी का आनंद लें।",
-                searchPlaceholder: "100+ उत्पादों में खोजें...",
-                sidebarTitle: "📁 श्रेणी मेनू",
-                allCat: "सभी श्रेणियां",
-                electronics: "इलेक्ट्रॉनिक्स",
-                fashion: "फैशन",
-                home: "होम एंड लिविंग",
-                beauty: "ब्यूटी एंड केयर",
-                sports: "खेल और फिटनेस",
-                addToCart: "कार्ट में जोड़ें",
-                buyNow: "अभी खरीदें",
-                totalAmount: "कुल राशि:",
-                cartTitle: "आपकी खरीदारी की टोकरी"
-            },
-            es: {
-                navStore: "TIENDA",
-                langLabel: "Idioma:",
-                cartBtn: "Carrito",
-                heroTag: "Colección Nueva",
-                heroTitle: "Eleva tu <span>Estilo de Vida</span> y Tecnología",
-                heroDesc: "Descubre artículos premium diseñados para el rendimiento y el confort con 20 productos por categoría.",
-                searchPlaceholder: "Buscar entre más de 100 artículos...",
-                sidebarTitle: "📁 Categorías del Menú",
-                allCat: "Todas las Categorías",
-                electronics: "Electrónica",
-                fashion: "Moda",
-                home: "Hogar y Vida",
-                beauty: "Belleza y Cuidado",
-                sports: "Deportes y Fitness",
-                addToCart: "Añadir al Carrito",
-                buyNow: "Comprar Ahora",
-                totalAmount: "Monto Total:",
-                cartTitle: "Tu Carrito de Compras"
-            }
-        };
+        const productsData = [
+            // FOOD & GOURMET
+            { id: 1, name: "Hyderabadi Dum Biryani", category: "food", price: 14.99, rating: 4.9, reviews: 340, image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80" },
+            { id: 2, name: "Artisanal Cheese Burger", category: "food", price: 12.50, rating: 4.8, reviews: 215, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" },
+            { id: 3, name: "Italian Truffle Pizza", category: "food", price: 18.99, rating: 4.9, reviews: 180, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
+            { id: 4, name: "Fresh Salmon Sushi Roll", category: "food", price: 16.75, rating: 4.7, reviews: 142, image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
+            { id: 5, name: "Creamy Butter Chicken & Naan", category: "food", price: 15.99, rating: 4.9, reviews: 290, image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80" },
+            { id: 6, name: "Gourmet Chocolate Lava Cake", category: "food", price: 8.50, rating: 4.9, reviews: 410, image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80" },
 
-        let currentLang = 'en';
+            // ELECTRONICS
+            { id: 7, name: "Wireless Noise-Canceling Headphones", category: "electronics", price: 199.99, rating: 4.8, reviews: 512, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" },
+            { id: 8, name: "Ultra-Smartwatch Series 9", category: "electronics", price: 249.00, rating: 4.7, reviews: 320, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" },
+            { id: 9, name: "Pro Mechanical Gaming Keyboard", category: "electronics", price: 119.50, rating: 4.9, reviews: 210, image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80" },
+            { id: 10, name: "Portable Crystal Bluetooth Speaker", category: "electronics", price: 79.99, rating: 4.6, reviews: 185, image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80" },
 
-        /* =========================================================
-           DATA SOURCE: 20 PRODUCTS PER CATEGORY (TOTAL 100 ITEMS)
-        ========================================================= */
-        const categoriesData = [
-            {
-                id: 'electronics',
-                name: 'Electronics',
-                icon: '🎧',
-                items: [
-                    { id: 'e1', name: 'Studio Wireless Headphones', price: 249.99, rating: '4.9', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80' },
-                    { id: 'e2', name: 'Ultra Fitness Smartwatch', price: 189.50, rating: '4.7', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80' },
-                    { id: 'e3', name: '360 Spatial Bluetooth Speaker', price: 99.99, rating: '4.8', img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80' },
-                    { id: 'e4', name: 'Precision Ergonomic Mouse', price: 59.99, rating: '4.6', img: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&q=80' },
-                    { id: 'e5', name: 'RGB Mechanical Gaming Keyboard', price: 129.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80' },
-                    { id: 'e6', name: '4K Ultra HD Streaming Camera', price: 149.99, rating: '4.5', img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&q=80' },
-                    { id: 'e7', name: 'Noise-Canceling Earbuds Pro', price: 179.99, rating: '4.8', img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80' },
-                    { id: 'e8', name: 'Fast Wireless Charging Pad', price: 39.99, rating: '4.4', img: 'https://images.unsplash.com/photo-1622445268465-843d63d03e52?w=500&q=80' },
-                    { id: 'e9', name: 'Curved UltraWide Monitor 34"', price: 499.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&q=80' },
-                    { id: 'e10', name: 'Portable SSD Power Drive 1TB', price: 119.50, rating: '4.7', img: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=500&q=80' },
-                    { id: 'e11', name: 'Smart Home Hub Speaker', price: 89.99, rating: '4.5', img: 'https://images.unsplash.com/photo-1543512214-318c7553f230?w=500&q=80' },
-                    { id: 'e12', name: 'HD Action Sports Camera', price: 210.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&q=80' },
-                    { id: 'e13', name: 'Pro Drone with 4K Gimbal', price: 799.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=500&q=80' },
-                    { id: 'e14', name: 'Electric Stylus Pen Tablet', price: 75.00, rating: '4.3', img: 'https://images.unsplash.com/photo-1626218174358-7769486c4b79?w=500&q=80' },
-                    { id: 'e15', name: 'Virtual Reality Headset VR', price: 349.99, rating: '4.7', img: 'https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?w=500&q=80' },
-                    { id: 'e16', name: 'Smart Security Cam Outdoor', price: 129.99, rating: '4.6', img: 'https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?w=500&q=80' },
-                    { id: 'e17', name: 'High-Speed Wi-Fi 6 Router', price: 159.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&q=80' },
-                    { id: 'e18', name: 'Foldable Solar Power Bank', price: 49.99, rating: '4.4', img: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=500&q=80' },
-                    { id: 'e19', name: 'Studio USB Condenser Mic', price: 109.99, rating: '4.8', img: 'https://images.unsplash.com/photo-1590658006821-04f4008d5717?w=500&q=80' },
-                    { id: 'e20', name: 'Adjustable Laptop Cooling Stand', price: 34.99, rating: '4.5', img: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&q=80' }
-                ]
-            },
-            {
-                id: 'fashion',
-                name: 'Fashion',
-                icon: '👔',
-                items: [
-                    { id: 'f1', name: 'Minimalist Leather Watch', price: 110.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&q=80' },
-                    { id: 'f2', name: 'Vintage Denim Outerwear Jacket', price: 135.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500&q=80' },
-                    { id: 'f3', name: 'Urban Leather Street Sneakers', price: 125.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&q=80' },
-                    { id: 'f4', name: 'Polarized Aviator Sunglasses', price: 85.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&q=80' },
-                    { id: 'f5', name: 'Classic Organic Cotton Hoodie', price: 65.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80' },
-                    { id: 'f6', name: 'Executive Leather Briefcase', price: 210.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80' },
-                    { id: 'f7', name: 'Slim Fit Tailored Blazer', price: 180.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&q=80' },
-                    { id: 'f8', name: 'Merino Wool Knit Beanie', price: 29.99, rating: '4.5', img: 'https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&q=80' },
-                    { id: 'f9', name: 'Modern Canvas Weekender Bag', price: 95.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?w=500&q=80' },
-                    { id: 'f10', name: 'Breathable Running Shoes', price: 115.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=500&q=80' },
-                    { id: 'f11', name: 'Italian Grain Leather Belt', price: 45.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=500&q=80' },
-                    { id: 'f12', name: 'Waterproof Winter Parka Coat', price: 240.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500&q=80' },
-                    { id: 'f13', name: 'Casual Linen Button-Down Shirt', price: 55.00, rating: '4.4', img: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&q=80' },
-                    { id: 'f14', name: 'Designer Gold Accent Bracelet', price: 89.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1611591475179-42004245649f?w=500&q=80' },
-                    { id: 'f15', name: 'Athletic Compression Joggers', price: 49.99, rating: '4.5', img: 'https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=500&q=80' },
-                    { id: 'f16', name: 'Vintage Leather Biker Jacket', price: 299.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=500&q=80' },
-                    { id: 'f17', name: 'Minimalist Cardholder Wallet', price: 35.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&q=80' },
-                    { id: 'f18', name: 'Cashmere Winter Scarf', price: 70.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=500&q=80' },
-                    { id: 'f19', name: 'Retro High-Top Sneakers', price: 105.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1512374382149-233c42b6a83b?w=500&q=80' },
-                    { id: 'f20', name: 'Satin Luxury Night Robe', price: 80.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500&q=80' }
-                ]
-            },
-            {
-                id: 'home',
-                name: 'Home & Living',
-                icon: '🏠',
-                items: [
-                    { id: 'h1', name: 'Aroma Diffuser & Humidifier', price: 42.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1602928321679-560b4139c901?w=500&q=80' },
-                    { id: 'h2', name: 'Ergonomic Memory Desk Chair', price: 220.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1580481072645-022f9a6d8310?w=500&q=80' },
-                    { id: 'h3', name: 'Nordic Ceramic Vase Set', price: 38.50, rating: '4.6', img: 'https://images.unsplash.com/photo-1612196808214-b7e239e5f6b7?w=500&q=80' },
-                    { id: 'h4', name: 'Handcrafted Soy Scented Candle', price: 24.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500&q=80' },
-                    { id: 'h5', name: 'Minimalist LED Desk Lamp', price: 54.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1534073828943-f801091bb18c?w=500&q=80' },
-                    { id: 'h6', name: 'Smart Vacuum Robot Cleaner', price: 299.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=500&q=80' },
-                    { id: 'h7', name: 'Organic Bamboo Bed Sheet Set', price: 95.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=80' },
-                    { id: 'h8', name: 'Precision French Coffee Press', price: 36.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=500&q=80' },
-                    { id: 'h9', name: 'Modern Wall Clock Silent', price: 29.00, rating: '4.5', img: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=500&q=80' },
-                    { id: 'h10', name: 'Indoor Succulent Garden Pots', price: 32.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&q=80' },
-                    { id: 'h11', name: 'Electric Espresso Machine', price: 189.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=500&q=80' },
-                    { id: 'h12', name: 'Velvet Soft Throw Pillow Cover', price: 18.00, rating: '4.4', img: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=500&q=80' },
-                    { id: 'h13', name: 'Natural Wooden Cutting Board', price: 40.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=500&q=80' },
-                    { id: 'h14', name: 'Air Purifier True HEPA Filter', price: 149.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&q=80' },
-                    { id: 'h15', name: 'Stainless Steel Knife Set', price: 85.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500&q=80' },
-                    { id: 'h16', name: 'Non-Stick Ceramic Cookware', price: 129.99, rating: '4.8', img: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500&q=80' },
-                    { id: 'h17', name: 'Woven Cotton Storage Basket', price: 26.00, rating: '4.5', img: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=500&q=80' },
-                    { id: 'h18', name: 'Smart Temperature Control Mug', price: 110.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&q=80' },
-                    { id: 'h19', name: 'Abstract Art Wall Canvas', price: 65.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&q=80' },
-                    { id: 'h20', name: 'Plush Bathrobe Ultra-Soft', price: 75.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=80' }
-                ]
-            },
-            {
-                id: 'beauty',
-                name: 'Beauty & Care',
-                icon: '✨',
-                items: [
-                    { id: 'b1', name: 'Hydrating Face Serum Hyaluronic', price: 48.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80' },
-                    { id: 'b2', name: 'Botanical Hair Repair Oil', price: 34.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1608248597261-5421d55ab385?w=500&q=80' },
-                    { id: 'b3', name: 'Sonic Facial Cleansing Brush', price: 79.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&q=80' },
-                    { id: 'b4', name: 'Luxury Eau De Parfum 100ml', price: 120.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=80' },
-                    { id: 'b5', name: 'Jade Facial Roller & Gua Sha', price: 22.00, rating: '4.5', img: 'https://images.unsplash.com/photo-1617897903246-719242758050?w=500&q=80' },
-                    { id: 'b6', name: 'Organic Coconut Body Butter', price: 28.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80' },
-                    { id: 'b7', name: 'Pro Ionic Hair Dryer 1800W', price: 89.99, rating: '4.8', img: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500&q=80' },
-                    { id: 'b8', name: 'Vitamin C Brightening Balm', price: 39.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1567928269937-ae146e45b428?w=500&q=80' },
-                    { id: 'b9', name: 'Matte Liquid Lipstick Set', price: 32.00, rating: '4.5', img: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500&q=80' },
-                    { id: 'b10', name: 'Soothing Aloe Gel Moisturizer', price: 19.99, rating: '4.6', img: 'https://images.unsplash.com/photo-1561053720-76cd73ff22c3?w=500&q=80' },
-                    { id: 'b11', name: 'Gentle Exfoliating Scrub', price: 26.00, rating: '4.4', img: 'https://images.unsplash.com/photo-1556228722-d119f649832d?w=500&q=80' },
-                    { id: 'b12', name: 'Pro Ceramic Hair Straightener', price: 69.99, rating: '4.8', img: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&q=80' },
-                    { id: 'b13', name: 'Nourishing Eye Cream Anti-Aging', price: 45.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=500&q=80' },
-                    { id: 'b14', name: 'Sunscreen Gel SPF 50+', price: 25.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=500&q=80' },
-                    { id: 'b15', name: 'Charcoal Detox Clay Mask', price: 24.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1567928269937-ae146e45b428?w=500&q=80' },
-                    { id: 'b16', name: 'Rosewater Facial Mist Spray', price: 18.00, rating: '4.5', img: 'https://images.unsplash.com/photo-1608248597261-5421d55ab385?w=500&q=80' },
-                    { id: 'b17', name: 'Beard Grooming Kit & Oil', price: 38.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1621607512214-68297480165e?w=500&q=80' },
-                    { id: 'b18', name: 'Eyelash Volumizing Serum', price: 29.00, rating: '4.4', img: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500&q=80' },
-                    { id: 'b19', name: 'Natural Mineral Makeup Kit', price: 58.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&q=80' },
-                    { id: 'b20', name: 'Luxury Spa Bath Bomb Set', price: 22.50, rating: '4.8', img: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=500&q=80' }
-                ]
-            },
-            {
-                id: 'sports',
-                name: 'Sports & Fitness',
-                icon: '⚽',
-                items: [
-                    { id: 's1', name: 'Non-Slip Eco Yoga Mat 6mm', price: 45.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500&q=80' },
-                    { id: 's2', name: 'Adjustable Dumbbell Set 50lbs', price: 199.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1638805981949-33230983a54d?w=500&q=80' },
-                    { id: 's3', name: 'Insulated Sports Water Bottle', price: 28.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80' },
-                    { id: 's4', name: 'Deep Tissue Massage Gun', price: 129.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=500&q=80' },
-                    { id: 's5', name: 'Heavy Duty Resistance Bands', price: 25.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=500&q=80' },
-                    { id: 's6', name: 'Pro Speed Jump Rope', price: 16.00, rating: '4.5', img: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=500&q=80' },
-                    { id: 's7', name: 'Hydration Running Vest Pack', price: 65.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=500&q=80' },
-                    { id: 's8', name: 'Trail Hiking Backpack 35L', price: 89.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&q=80' },
-                    { id: 's9', name: 'Carbon Fiber Badminton Racket', price: 75.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500&q=80' },
-                    { id: 's10', name: 'Official Size Leather Basketball', price: 39.99, rating: '4.8', img: 'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=500&q=80' },
-                    { id: 's11', name: 'Padded Cycling Gloves Short', price: 22.00, rating: '4.5', img: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&q=80' },
-                    { id: 's12', name: 'High-Density Foam Roller', price: 29.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&q=80' },
-                    { id: 's13', name: 'Outdoor Waterproof Tent 4P', price: 159.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&q=80' },
-                    { id: 's14', name: 'Trekking Walking Poles Pair', price: 42.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&q=80' },
-                    { id: 's15', name: 'Boxing Gloves Training 12oz', price: 54.00, rating: '4.8', img: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=500&q=80' },
-                    { id: 's16', name: 'GPS Bike Speedometer Computer', price: 85.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=500&q=80' },
-                    { id: 's17', name: 'Fitness Tracker Heart Monitor', price: 69.00, rating: '4.5', img: 'https://images.unsplash.com/photo-1510017803434-a899398421b3?w=500&q=80' },
-                    { id: 's18', name: 'Inflatable Paddle Board Set', price: 349.00, rating: '4.9', img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&q=80' },
-                    { id: 's19', name: 'Weightlifting Leather Belt', price: 48.00, rating: '4.7', img: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=500&q=80' },
-                    { id: 's20', name: 'Agility Ladder & Cone Kit', price: 26.00, rating: '4.6', img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&q=80' }
-                ]
-            }
+            // FASHION
+            { id: 11, name: "Urban Streetwear Oversized Hoodie", category: "fashion", price: 59.99, rating: 4.6, reviews: 190, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80" },
+            { id: 12, name: "Classic Heritage Leather Jacket", category: "fashion", price: 189.99, rating: 4.9, reviews: 98, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" },
+            { id: 13, name: "Minimalist Modern Sneakers", category: "fashion", price: 89.00, rating: 4.7, reviews: 230, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" },
+
+            // HOME & LIVING
+            { id: 14, name: "Ambient RGB Smart Desk Lamp", category: "home", price: 45.00, rating: 4.8, reviews: 115, image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=80" },
+            { id: 15, name: "Aromatherapy Essential Oil Diffuser", category: "home", price: 34.99, rating: 4.5, reviews: 160, image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80" },
+
+            // BEAUTY & CARE
+            { id: 16, name: "Hydrating Facial Glow Serum", category: "beauty", price: 29.99, rating: 4.9, reviews: 275, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80" },
+            { id: 17, name: "Luxury Organic Perfume Spray", category: "beauty", price: 75.00, rating: 4.8, reviews: 88, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&q=80" },
+
+            // SPORTS & FITNESS
+            { id: 18, name: "Non-Slip Eco Fitness Yoga Mat", category: "sports", price: 38.50, rating: 4.7, reviews: 140, image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&q=80" },
+            { id: 19, name: "Adjustable Smart Dumbbell Set", category: "sports", price: 129.99, rating: 4.9, reviews: 205, image: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=600&q=80" }
         ];
 
         let cart = [];
-        let likedItems = new Set();
-        let currentDirectBuyItem = null;
+        let favorites = new Set();
+        let currentCategory = "all";
+        let searchQuery = "";
 
-        /* =========================================================
-           RENDER PRODUCTS SECTIONS
-        ========================================================= */
-        function renderProducts(searchQuery = '', filterCategory = 'all') {
-            const container = document.getElementById('products-container');
-            container.innerHTML = '';
+        const categoryLabels = {
+            food: "🍔 Food & Gourmet",
+            electronics: "🎧 Electronics",
+            fashion: "👔 Fashion",
+            home: "🏠 Home & Living",
+            beauty: "✨ Beauty & Care",
+            sports: "⚽ Sports & Fitness"
+        };
 
-            let totalDisplayed = 0;
+        const productsContainer = document.getElementById("products-container");
+        const searchInput = document.getElementById("search-input");
+        const clearSearchBtn = document.getElementById("clear-search-btn");
+        const categorySelect = document.getElementById("category-select");
+        const chips = document.querySelectorAll(".chip");
+        const sidebarBtns = document.querySelectorAll(".menu-item-btn");
+        const cartModal = document.getElementById("cart-modal");
+        const checkoutModal = document.getElementById("checkout-modal");
+        const openCartBtn = document.getElementById("open-cart-btn");
+        const closeCartBtn = document.getElementById("close-cart-btn");
+        const closeCheckoutBtn = document.getElementById("close-checkout-btn");
+        const cartItemsContainer = document.getElementById("cart-items-container");
+        const cartTotalPrice = document.getElementById("cart-total-price");
+        const cartCount = document.getElementById("cart-count");
+        const toast = document.getElementById("toast");
+        const toastMsg = document.getElementById("toast-msg");
 
-            categoriesData.forEach(cat => {
-                if (filterCategory !== 'all' && filterCategory !== cat.id) return;
+        document.addEventListener("DOMContentLoaded", () => {
+            updateCategoryCounts();
+            renderProducts();
+            setupEventListeners();
+        });
 
-                // Filter items by search
-                const filteredItems = cat.items.filter(item => 
-                    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-                );
-
-                if (filteredItems.length === 0) return;
-
-                totalDisplayed += filteredItems.length;
-
-                // Build category block section
-                const section = document.createElement('section');
-                section.className = 'category-section-block';
-                section.id = `cat-section-${cat.id}`;
-
-                const langData = translations[currentLang];
-                const catNameTranslated = langData[cat.id] || cat.name;
-
-                section.innerHTML = `
-                    <div class="category-section-header">
-                        <h2 class="category-section-title">
-                            ${cat.icon} ${catNameTranslated}
-                            <span class="category-badge-count">${filteredItems.length} items</span>
-                        </h2>
-                    </div>
-                    <div class="category-items-grid">
-                        ${filteredItems.map(item => `
-                            <div class="product-card" data-id="${item.id}">
-                                <div class="image-frame">
-                                    <img src="${item.img}" alt="${item.name}">
-                                    <span class="badge badge-${cat.id}">${catNameTranslated}</span>
-                                    <button class="like-btn ${likedItems.has(item.id) ? 'active' : ''}" onclick="toggleLike('${item.id}', this)">♥</button>
-                                </div>
-                                <div class="item-details">
-                                    <div class="item-title" title="${item.name}">${item.name}</div>
-                                    <div class="item-rating">★ ★ ★ ★ ★ <span>(${item.rating})</span></div>
-                                    <div class="item-price">$${item.price.toFixed(2)}</div>
-                                    <div class="action-row">
-                                        <button class="btn btn-add-cart" onclick="addToCart('${item.id}')">
-                                            🛒 ${langData.addToCart}
-                                        </button>
-                                        <button class="btn btn-buy-now" onclick="buyNow('${item.id}')">
-                                            ⚡ ${langData.buyNow}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-
-                container.appendChild(section);
-            });
-
-            if (totalDisplayed === 0) {
-                container.innerHTML = `
-                    <div class="empty-state" style="display:block;">
-                        <div class="empty-icon">🔍</div>
-                        <h3>No products found</h3>
-                        <p>Try searching for a different item or switch categories.</p>
-                    </div>
-                `;
+        function updateCategoryCounts() {
+            document.getElementById("count-all").textContent = productsData.length;
+            const counts = { food: 0, electronics: 0, fashion: 0, home: 0, beauty: 0, sports: 0 };
+            productsData.forEach(p => { if (counts[p.category] !== undefined) counts[p.category]++; });
+            for (let cat in counts) {
+                const el = document.getElementById(`count-${cat}`);
+                if (el) el.textContent = counts[cat];
             }
         }
 
-        /* =========================================================
-           CART & ACTIONS FUNCTIONS
-        ========================================================= */
-        function getItemById(id) {
-            for (let cat of categoriesData) {
-                let found = cat.items.find(i => i.id === id);
-                if (found) return found;
+        function renderProducts() {
+            productsContainer.innerHTML = "";
+
+            const filtered = productsData.filter(item => {
+                const matchesCat = (currentCategory === "all" || item.category === currentCategory);
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      item.category.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                productsContainer.innerHTML = `
+                    <div class="empty-state" style="display:block;">
+                        <div class="empty-icon">🔍</div>
+                        <h3>No Products Found</h3>
+                        <p>Try searching for something else or change category filter.</p>
+                    </div>`;
+                return;
             }
-            return null;
+
+            const categoriesToRender = currentCategory === "all" 
+                ? [...new Set(filtered.map(item => item.category))]
+                : [currentCategory];
+
+            categoriesToRender.forEach(cat => {
+                const catItems = filtered.filter(item => item.category === cat);
+                if (catItems.length === 0) return;
+
+                const section = document.createElement("div");
+                section.className = "category-section-block";
+                section.id = `section-${cat}`;
+
+                const header = document.createElement("div");
+                header.className = "category-section-header";
+                header.innerHTML = `
+                    <h2 class="category-section-title">
+                        ${categoryLabels[cat] || cat}
+                    </h2>
+                    <span class="category-badge-count">${catItems.length} items</span>
+                `;
+
+                const grid = document.createElement("div");
+                grid.className = "category-items-grid";
+
+                catItems.forEach(item => {
+                    const card = document.createElement("div");
+                    card.className = "product-card";
+                    const isLiked = favorites.has(item.id);
+
+                    card.innerHTML = `
+                        <div class="image-frame">
+                            <span class="badge badge-${item.category}">${item.category}</span>
+                            <button class="like-btn ${isLiked ? 'active' : ''}" onclick="toggleLike(${item.id})">
+                                ${isLiked ? '❤️' : '🤍'}
+                            </button>
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-title">${item.name}</h3>
+                            <div class="item-rating">
+                                ★ ${item.rating} <span>(${item.reviews})</span>
+                            </div>
+                            <div class="item-price">$${item.price.toFixed(2)}</div>
+                            <div class="action-row">
+                                <button class="btn btn-add-cart" onclick="addToCart(${item.id})">
+                                    🛒 Add
+                                </button>
+                                <button class="btn btn-buy-now" onclick="buyNow(${item.id})">
+                                    ⚡ Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(header);
+                section.appendChild(grid);
+                productsContainer.appendChild(section);
+            });
+        }
+
+        function toggleLike(id) {
+            if (favorites.has(id)) {
+                favorites.delete(id);
+                showToast("Removed from Wishlist", "🤍");
+            } else {
+                favorites.add(id);
+                showToast("Added to Wishlist!", "❤️");
+            }
+            renderProducts();
         }
 
         function addToCart(id) {
-            const item = getItemById(id);
+            const item = productsData.find(p => p.id === id);
             if (!item) return;
 
             const existing = cart.find(c => c.id === id);
             if (existing) {
-                existing.qty += 1;
+                existing.qty++;
             } else {
                 cart.push({ ...item, qty: 1 });
             }
 
             updateCartUI();
-            showToast(`Added "${item.name}" to cart!`);
+            showToast(`${item.name} added to cart!`, "🛒");
+        }
+
+        function buyNow(id) {
+            addToCart(id);
+            openCheckout();
         }
 
         function updateCartUI() {
-            const countEl = document.getElementById('cart-count');
-            const totalQty = cart.reduce((acc, i) => acc + i.qty, 0);
-            countEl.textContent = totalQty;
-
-            const wrapper = document.getElementById('cart-items-wrapper');
-            const totalPriceEl = document.getElementById('cart-total-price');
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCount.textContent = totalCount;
 
             if (cart.length === 0) {
-                wrapper.innerHTML = `
-                    <div class="cart-empty-box">
-                        <div style="font-size: 40px; margin-bottom: 10px;">🛒</div>
-                        <p>Your cart is empty.</p>
-                    </div>
-                `;
-                totalPriceEl.textContent = '$0.00';
+                cartItemsContainer.innerHTML = `<div class="cart-empty-box">Your cart is currently empty.</div>`;
+                cartTotalPrice.textContent = "$0.00";
                 return;
             }
 
-            let totalCost = 0;
-            wrapper.innerHTML = cart.map(i => {
-                const itemTotal = i.price * i.qty;
-                totalCost += itemTotal;
-                return `
-                    <div class="cart-row">
-                        <div class="cart-thumb">
-                            <img src="${i.img}" alt="${i.name}">
-                        </div>
-                        <div>
-                            <div class="cart-item-title">${i.name}</div>
-                            <div class="cart-item-price">$${i.price.toFixed(2)}</div>
-                            <div class="qty-controls">
-                                <button class="qty-btn" onclick="changeQty('${i.id}', -1)">-</button>
-                                <span>${i.qty}</span>
-                                <button class="qty-btn" onclick="changeQty('${i.id}', 1)">+</button>
-                            </div>
-                        </div>
-                        <div style="text-align: right; font-weight: 800;">
-                            $${itemTotal.toFixed(2)}
+            cartItemsContainer.innerHTML = "";
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+
+                const row = document.createElement("div");
+                row.className = "cart-row";
+                row.innerHTML = `
+                    <div class="cart-thumb">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div>
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
                         </div>
                     </div>
+                    <div style="font-weight: 800;">
+                        $${itemTotal.toFixed(2)}
+                    </div>
                 `;
-            }).join('');
+                cartItemsContainer.appendChild(row);
+            });
 
-            totalPriceEl.textContent = `$${totalCost.toFixed(2)}`;
+            cartTotalPrice.textContent = `$${total.toFixed(2)}`;
         }
 
         function changeQty(id, delta) {
-            const idx = cart.findIndex(c => c.id === id);
-            if (idx > -1) {
-                cart[idx].qty += delta;
-                if (cart[idx].qty <= 0) {
-                    cart.splice(idx, 1);
-                }
+            const item = cart.find(c => c.id === id);
+            if (!item) return;
+
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(c => c.id !== id);
             }
             updateCartUI();
         }
 
-        function buyNow(id) {
-            const item = getItemById(id);
-            if (!item) return;
-
-            currentDirectBuyItem = item;
-            const summary = document.getElementById('buynow-product-summary');
-            summary.innerHTML = `
-                <div class="cart-row">
-                    <div class="cart-thumb"><img src="${item.img}"></div>
-                    <div>
-                        <div class="cart-item-title">${item.name}</div>
-                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('buynow-modal').style.display = 'flex';
+        function showToast(msg, icon = "🛒") {
+            toastMsg.textContent = msg;
+            document.getElementById("toast-icon").textContent = icon;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2500);
         }
 
-        function completeDirectPurchase() {
-            document.getElementById('buynow-modal').style.display = 'none';
-            showToast(`🎉 Order placed successfully for ${currentDirectBuyItem.name}!`, '✅');
-        }
-
-        function toggleLike(id, btn) {
-            if (likedItems.has(id)) {
-                likedItems.delete(id);
-                btn.classList.remove('active');
-            } else {
-                likedItems.add(id);
-                btn.classList.add('active');
-                showToast("Added to your wishlist! ♥");
-            }
-        }
-
-        function showToast(msg, icon = '🛒') {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').textContent = msg;
-            document.getElementById('toast-icon').textContent = icon;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        /* =========================================================
-           SETTINGS & LANGUAGE CHANGE HANDLER
-        ========================================================= */
-        function updateLanguage(lang) {
-            currentLang = lang;
-            const dict = translations[lang] || translations.en;
-
-            document.getElementById('nav-store-title').textContent = dict.navStore;
-            document.getElementById('lang-label').textContent = dict.langLabel;
-            document.getElementById('cart-btn-text').textContent = dict.cartBtn;
-            document.getElementById('hero-tag').textContent = dict.heroTag;
-            document.getElementById('hero-title').innerHTML = dict.heroTitle;
-            document.getElementById('hero-desc').textContent = dict.heroDesc;
-            document.getElementById('search-input').placeholder = dict.searchPlaceholder;
-            document.getElementById('sidebar-title').textContent = dict.sidebarTitle;
-            document.getElementById('total-text').textContent = dict.totalAmount;
-            document.getElementById('cart-modal-title').textContent = dict.cartTitle;
-
-            // Update sidebar category labels
-            const menuBtns = document.querySelectorAll('.menu-item-btn');
-            menuBtns.forEach(btn => {
-                const target = btn.getAttribute('data-target');
-                const labelSpan = btn.querySelector('.cat-label');
-                if (labelSpan) {
-                    if (target === 'all') labelSpan.textContent = dict.allCat;
-                    else if (dict[target]) labelSpan.textContent = dict[target];
-                }
+        function setupEventListeners() {
+            searchInput.addEventListener("input", (e) => {
+                searchQuery = e.target.value.trim();
+                clearSearchBtn.style.display = searchQuery ? "flex" : "none";
+                renderProducts();
             });
 
-            // Re-render product grid with translated button labels and badges
-            const currentSearch = document.getElementById('search-input').value;
-            const currentCat = document.getElementById('category-select').value;
-            renderProducts(currentSearch, currentCat);
+            clearSearchBtn.addEventListener("click", () => {
+                searchInput.value = "";
+                searchQuery = "";
+                clearSearchBtn.style.display = "none";
+                renderProducts();
+            });
+
+            categorySelect.addEventListener("change", (e) => {
+                setActiveCategory(e.target.value);
+            });
+
+            chips.forEach(chip => {
+                chip.addEventListener("click", () => {
+                    const cat = chip.dataset.category;
+                    setActiveCategory(cat);
+                });
+            });
+
+            sidebarBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const cat = btn.dataset.target;
+                    setActiveCategory(cat);
+                });
+            });
+
+            openCartBtn.addEventListener("click", () => cartModal.style.display = "flex");
+            closeCartBtn.addEventListener("click", () => cartModal.style.display = "none");
+            closeCheckoutBtn.addEventListener("click", () => checkoutModal.style.display = "none");
+            
+            document.getElementById("checkout-btn").addEventListener("click", () => {
+                cartModal.style.display = "none";
+                openCheckout();
+            });
         }
 
-        /* =========================================================
-           EVENTS LISTENERS & INITIALIZATION
-        ========================================================= */
-        document.addEventListener('DOMContentLoaded', () => {
+        function setActiveCategory(cat) {
+            currentCategory = cat;
+            categorySelect.value = cat;
+
+            chips.forEach(c => {
+                if (c.dataset.category === cat) c.classList.add("active");
+                else c.classList.remove("active");
+            });
+
+            sidebarBtns.forEach(b => {
+                if (b.dataset.target === cat) b.classList.add("active");
+                else b.classList.remove("active");
+            });
+
             renderProducts();
+        }
 
-            // Language Switcher
-            document.getElementById('lang-select').addEventListener('change', (e) => {
-                updateLanguage(e.target.value);
-            });
+        function openCheckout() {
+            if (cart.length === 0) {
+                showToast("Cart is empty!", "⚠️");
+                return;
+            }
+            checkoutModal.style.display = "flex";
+        }
 
-            // Search input listener
-            const searchInput = document.getElementById('search-input');
-            const clearBtn = document.getElementById('clear-search-btn');
-
-            searchInput.addEventListener('input', (e) => {
-                const val = e.target.value;
-                clearBtn.style.display = val ? 'flex' : 'none';
-                renderProducts(val, document.getElementById('category-select').value);
-            });
-
-            clearBtn.addEventListener('click', () => {
-                searchInput.value = '';
-                clearBtn.style.display = 'none';
-                renderProducts('', document.getElementById('category-select').value);
-            });
-
-            // Category select listener
-            const catSelect = document.getElementById('category-select');
-            catSelect.addEventListener('change', (e) => {
-                const val = e.target.value;
-                updateCategoryActiveStates(val);
-                renderProducts(searchInput.value, val);
-            });
-
-            // Quick Chips Listener
-            document.querySelectorAll('.chip').forEach(chip => {
-                chip.addEventListener('click', () => {
-                    const cat = chip.getAttribute('data-category');
-                    catSelect.value = cat;
-                    updateCategoryActiveStates(cat);
-                    renderProducts(searchInput.value, cat);
-                });
-            });
-
-            // Sidebar Menu Click Listener
-            document.querySelectorAll('.menu-item-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const target = btn.getAttribute('data-target');
-                    catSelect.value = target;
-                    updateCategoryActiveStates(target);
-                    renderProducts(searchInput.value, target);
-
-                    if (target !== 'all') {
-                        const targetEl = document.getElementById(`cat-section-${target}`);
-                        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-            // Cart Modal Handlers
-            document.getElementById('open-cart-btn').addEventListener('click', () => {
-                document.getElementById('cart-modal').style.display = 'flex';
-            });
-            document.getElementById('close-cart-btn').addEventListener('click', () => {
-                document.getElementById('cart-modal').style.display = 'none';
-            });
-            document.getElementById('close-buynow-btn').addEventListener('click', () => {
-                document.getElementById('buynow-modal').style.display = 'none';
-            });
-
-            document.getElementById('checkout-btn').addEventListener('click', () => {
-                if (cart.length === 0) {
-                    alert('Your cart is empty!');
-                    return;
-                }
-                document.getElementById('cart-modal').style.display = 'none';
-                cart = [];
-                updateCartUI();
-                showToast("🎉 Order placed successfully! Thank you for shopping.", '✅');
-            });
-        });
-
-        function updateCategoryActiveStates(catId) {
-            document.querySelectorAll('.chip').forEach(c => {
-                c.classList.toggle('active', c.getAttribute('data-category') === catId);
-            });
-            document.querySelectorAll('.menu-item-btn').forEach(m => {
-                m.classList.toggle('active', m.getAttribute('data-target') === catId);
-            });
+        function handleCheckoutSubmit(e) {
+            e.preventDefault();
+            checkoutModal.style.display = "none";
+            cart = [];
+            updateCartUI();
+            showToast("Order placed successfully! 🎉", "✅");
         }
     </script>
 </body>
