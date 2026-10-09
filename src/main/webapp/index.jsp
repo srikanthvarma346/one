@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1075,25 +1074,34 @@
                 </ul>
             </aside>
 
-            <!-- RIGHT PRODUCTS CONTAINER -->
-            <section class="products-area" id="products-container">
-            </section>
+            <!-- PRODUCTS DISPLAY CONTAINER -->
+            <div class="products-area" id="products-area">
+                <!-- Dynamic Content Injected Here -->
+            </div>
+
+            <!-- EMPTY STATE -->
+            <div class="empty-state" id="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3 id="empty-title">No matching products found</h3>
+                <p id="empty-desc">Try adjusting your search terms or filter settings.</p>
+            </div>
 
         </div>
-
     </main>
 
     <!-- SHOPPING CART MODAL -->
     <div class="modal-overlay" id="cart-modal">
         <div class="modal-box">
             <div class="modal-header">
-                <h3>🛒 Your Shopping Cart</h3>
+                <h3 id="cart-modal-title">Shopping Cart</h3>
                 <button class="close-modal-btn" id="close-cart-btn">✕</button>
             </div>
-            <div id="cart-items-container"></div>
-            <div class="cart-footer" id="cart-footer">
+            <div id="cart-items-list">
+                <!-- Cart items will be loaded dynamically -->
+            </div>
+            <div class="cart-footer">
                 <div class="cart-total-row">
-                    <span>Total:</span>
+                    <span id="total-label">Total:</span>
                     <span id="cart-total-price">$0.00</span>
                 </div>
                 <button class="btn btn-buy-now" style="width: 100%; height: 48px; font-size: 15px;" id="checkout-btn">
@@ -1103,368 +1111,550 @@
         </div>
     </div>
 
-    <!-- QUICK BUY / CHECKOUT MODAL -->
+    <!-- CHECKOUT MODAL -->
     <div class="modal-overlay" id="checkout-modal">
         <div class="modal-box">
             <div class="modal-header">
-                <h3>⚡ Quick Checkout</h3>
+                <h3 id="checkout-modal-title">Complete Your Order</h3>
                 <button class="close-modal-btn" id="close-checkout-btn">✕</button>
             </div>
-            <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+            <form id="checkout-form">
                 <div class="form-group">
-                    <label>Full Name</label>
+                    <label id="lbl-name">Full Name</label>
                     <input type="text" class="form-control" required placeholder="John Doe">
                 </div>
                 <div class="form-group">
-                    <label>Delivery Address / Room #</label>
-                    <input type="text" class="form-control" required placeholder="123 Main Street, Apt 4B">
+                    <label id="lbl-email">Email Address</label>
+                    <input type="email" class="form-control" required placeholder="john@example.com">
                 </div>
                 <div class="form-group">
-                    <label>Payment Method</label>
-                    <select class="form-control">
-                        <option>Credit / Debit Card</option>
-                        <option>UPI / Net Banking</option>
-                        <option>Cash on Delivery (COD)</option>
-                    </select>
+                    <label id="lbl-address">Shipping Address</label>
+                    <input type="text" class="form-control" required placeholder="123 Main St, City, Country">
                 </div>
-                <div style="margin-top: 24px;">
-                    <button type="submit" class="btn btn-buy-now" style="width: 100%; height: 48px; font-size: 15px;">
-                        Confirm Order
-                    </button>
-                </div>
+                <button type="submit" class="btn btn-add-cart" style="width: 100%; height: 48px; font-size: 15px; margin-top: 20px;">
+                    Confirm & Pay
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- APPLICATION LOGIC JS -->
     <script>
-        const productsData = [
-            // FOOD & GOURMET
-            { id: 1, name: "Hyderabadi Dum Biryani", category: "food", price: 14.99, rating: 4.9, reviews: 340, image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80" },
-            { id: 2, name: "Artisanal Cheese Burger", category: "food", price: 12.50, rating: 4.8, reviews: 215, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" },
-            { id: 3, name: "Italian Truffle Pizza", category: "food", price: 18.99, rating: 4.9, reviews: 180, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
-            { id: 4, name: "Fresh Salmon Sushi Roll", category: "food", price: 16.75, rating: 4.7, reviews: 142, image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80" },
-            { id: 5, name: "Creamy Butter Chicken & Naan", category: "food", price: 15.99, rating: 4.9, reviews: 290, image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80" },
-            { id: 6, name: "Gourmet Chocolate Lava Cake", category: "food", price: 8.50, rating: 4.9, reviews: 410, image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80" },
-
-            // ELECTRONICS
-            { id: 7, name: "Wireless Noise-Canceling Headphones", category: "electronics", price: 199.99, rating: 4.8, reviews: 512, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" },
-            { id: 8, name: "Ultra-Smartwatch Series 9", category: "electronics", price: 249.00, rating: 4.7, reviews: 320, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" },
-            { id: 9, name: "Pro Mechanical Gaming Keyboard", category: "electronics", price: 119.50, rating: 4.9, reviews: 210, image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80" },
-            { id: 10, name: "Portable Crystal Bluetooth Speaker", category: "electronics", price: 79.99, rating: 4.6, reviews: 185, image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80" },
-
-            // FASHION
-            { id: 11, name: "Urban Streetwear Oversized Hoodie", category: "fashion", price: 59.99, rating: 4.6, reviews: 190, image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80" },
-            { id: 12, name: "Classic Heritage Leather Jacket", category: "fashion", price: 189.99, rating: 4.9, reviews: 98, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" },
-            { id: 13, name: "Minimalist Modern Sneakers", category: "fashion", price: 89.00, rating: 4.7, reviews: 230, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" },
-
-            // HOME & LIVING
-            { id: 14, name: "Ambient RGB Smart Desk Lamp", category: "home", price: 45.00, rating: 4.8, reviews: 115, image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=80" },
-            { id: 15, name: "Aromatherapy Essential Oil Diffuser", category: "home", price: 34.99, rating: 4.5, reviews: 160, image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80" },
-
-            // BEAUTY & CARE
-            { id: 16, name: "Hydrating Facial Glow Serum", category: "beauty", price: 29.99, rating: 4.9, reviews: 275, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80" },
-            { id: 17, name: "Luxury Organic Perfume Spray", category: "beauty", price: 75.00, rating: 4.8, reviews: 88, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&q=80" },
-
-            // SPORTS & FITNESS
-            { id: 18, name: "Non-Slip Eco Fitness Yoga Mat", category: "sports", price: 38.50, rating: 4.7, reviews: 140, image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&q=80" },
-            { id: 19, name: "Adjustable Smart Dumbbell Set", category: "sports", price: 129.99, rating: 4.9, reviews: 205, image: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=600&q=80" }
-        ];
-
-        let cart = [];
-        let favorites = new Set();
-        let currentCategory = "all";
-        let searchQuery = "";
-
-        const categoryLabels = {
-            food: "🍔 Food & Gourmet",
-            electronics: "🎧 Electronics",
-            fashion: "👔 Fashion",
-            home: "🏠 Home & Living",
-            beauty: "✨ Beauty & Care",
-            sports: "⚽ Sports & Fitness"
+        /* =========================================================
+           DATA & TRANSLATION ENGINE
+        ========================================================= */
+        const translations = {
+            en: {
+                storeTitle: "STORE",
+                langLabel: "Lang:",
+                cartBtn: "Cart",
+                heroTag: "Next-Gen Collection",
+                heroTitle: "Elevate Your <span>Lifestyle</span>, Food & Tech",
+                heroDesc: "Discover curated gourmet delights, premium tech, and lifestyle essentials built for performance, comfort, and modern living.",
+                searchPlaceholder: "Search across all products and delicious food...",
+                menuTitle: "📁 Menu Categories",
+                allCategories: "All Categories",
+                foodCategory: "Food & Gourmet",
+                electronicsCategory: "Electronics",
+                fashionCategory: "Fashion",
+                homeCategory: "Home & Living",
+                beautyCategory: "Beauty & Care",
+                sportsCategory: "Sports & Fitness",
+                addToCart: "Add to Cart",
+                buyNow: "Buy Now",
+                addedToast: "Item added to cart!",
+                cartTitle: "Shopping Cart",
+                emptyCart: "Your cart is currently empty.",
+                total: "Total:",
+                checkout: "Proceed to Checkout",
+                checkoutTitle: "Complete Your Order",
+                name: "Full Name",
+                email: "Email Address",
+                address: "Shipping Address",
+                confirmPay: "Confirm & Pay",
+                orderSuccess: "Thank you for your order! Your payment was successful.",
+                noProducts: "No matching products found",
+                noProductsDesc: "Try adjusting your search terms or filter settings."
+            },
+            te: {
+                storeTitle: "స్టోర్",
+                langLabel: "భాష:",
+                cartBtn: "కార్ట్",
+                heroTag: "లేటెస్ట్ కలెక్షన్",
+                heroTitle: "మీ <span>జీవనశైలి</span>, ఫుడ్ మరియు టెక్నాలజీని మెరుగుపరచండి",
+                heroDesc: "అత్యుత్తమ నాణ్యత గల రుచికరమైన ఆహారం, తాజా ఎలక్ట్రానిక్స్ మరియు ఆధునిక లైఫ్‌స్టైల్ ఉత్పత్తులను ఇక్కడ పొందండి.",
+                searchPlaceholder: "అన్ని రకాల ఉత్పత్తులు మరియు ఆహారాన్ని శోధించండి...",
+                menuTitle: "📁 మెనూ వర్గాలు",
+                allCategories: "అన్ని వర్గాలు",
+                foodCategory: "ఫుడ్ & గొర్మేట్",
+                electronicsCategory: "ఎలక్ట్రానిక్స్",
+                fashionCategory: "ఫ్యాషన్",
+                homeCategory: "హోమ్ & లివింగ్",
+                beautyCategory: "బ్యూటీ & కేర్",
+                sportsCategory: "స్పోర్ట్స్ & ఫిట్‌నెస్",
+                addToCart: "కార్ట్‌కు జోడించు",
+                buyNow: "ఇప్పుడే కొనండి",
+                addedToast: "కార్ట్‌లో జోడించబడింది!",
+                cartTitle: "షాపింగ్ కార్ట్",
+                emptyCart: "మీ కార్ట్ ఖాళీగా ఉంది.",
+                total: "మొత్తం ధర:",
+                checkout: "చెల్లింపు కొనసాగించండి",
+                checkoutTitle: "మీ ఆర్డర్‌ పూర్తి చేయండి",
+                name: "పూర్తి పేరు",
+                email: "ఈమెయిల్ చిరునామా",
+                address: "షిప్పింగ్ చిరునామా",
+                confirmPay: "సమర్పించు మరియు చెల్లించు",
+                orderSuccess: "ధన్యవాదాలు! మీ ఆర్డర్ విజయవంతంగా పూర్తయింది.",
+                noProducts: "ఉత్పత్తులేవీ కనుగొనబడలేదు",
+                noProductsDesc: "దయచేసి వేరే పదాలతో శోధించండి."
+            },
+            hi: {
+                storeTitle: "स्टोर",
+                langLabel: "भाषा:",
+                cartBtn: "कार्ट",
+                heroTag: "नेक्स्ट-जेन कलेक्शन",
+                heroTitle: "अपनी <span>जीवनशैली</span>, भोजन और तकनीक को बेहतर बनाएं",
+                heroDesc: "प्रीमियम तकनीक, स्वादिष्ट भोजन और आधुनिक जीवनशैली के लिए उत्कृष्ट उत्पादों की खोज करें।",
+                searchPlaceholder: "सभी उत्पादों और स्वादिष्ट व्यंजनों को खोजें...",
+                menuTitle: "📁 श्रेणी मेनू",
+                allCategories: "सभी श्रेणियां",
+                foodCategory: "खाद्य और व्यंजन",
+                electronicsCategory: "इलेक्ट्रॉनिक्स",
+                fashionCategory: "फैशन",
+                homeCategory: "होम एंड लिविंग",
+                beautyCategory: "ब्यूटी एंड केयर",
+                sportsCategory: "खेल और फिटनेस",
+                addToCart: "कार्ट में जोड़ें",
+                buyNow: "अभी खरीदें",
+                addedToast: "कार्ट में जोड़ा गया!",
+                cartTitle: "शॉपिंग कार्ट",
+                emptyCart: "आपकी कार्ट खाली है।",
+                total: "कुल योग:",
+                checkout: "चेकआउट करें",
+                checkoutTitle: "अपना ऑर्डर पूरा करें",
+                name: "पूरा नाम",
+                email: "ईमेल पता",
+                address: "डिलिवरी का पता",
+                confirmPay: "भुगतान करें",
+                orderSuccess: "धन्यवाद! आपका ऑर्डर सफलतापूर्वक पूरा हो गया है।",
+                noProducts: "कोई उत्पाद नहीं मिला",
+                noProductsDesc: "कृपया कोई अन्य शब्द खोजें।"
+            },
+            es: {
+                storeTitle: "TIENDA",
+                langLabel: "Idioma:",
+                cartBtn: "Carrito",
+                heroTag: "Colección Next-Gen",
+                heroTitle: "Eleva tu <span>Estilo de Vida</span>, Comida y Tecnología",
+                heroDesc: "Descubre delicias gourmet, tecnología de vanguardia y productos esenciales para el estilo de vida moderno.",
+                searchPlaceholder: "Buscar productos y deliciosa comida...",
+                menuTitle: "📁 Categorías",
+                allCategories: "Todas las Categorías",
+                foodCategory: "Comida y Gourmet",
+                electronicsCategory: "Electrónica",
+                fashionCategory: "Moda",
+                homeCategory: "Hogar y Vida",
+                beautyCategory: "Belleza y Cuidado",
+                sportsCategory: "Deportes y Fitness",
+                addToCart: "Añadir al Carrito",
+                buyNow: "Comprar Ahora",
+                addedToast: "¡Añadido al carrito!",
+                cartTitle: "Carrito de Compras",
+                emptyCart: "Tu carrito está vacío.",
+                total: "Total:",
+                checkout: "Proceder al Pago",
+                checkoutTitle: "Completa tu Pedido",
+                name: "Nombre Completo",
+                email: "Correo Electrónico",
+                address: "Dirección de Envío",
+                confirmPay: "Confirmar y Pagar",
+                orderSuccess: "¡Gracias por tu compra! El pago se ha realizado con éxito.",
+                noProducts: "No se encontraron productos",
+                noProductsDesc: "Prueba ajustando tus términos de búsqueda."
+            }
         };
 
-        const productsContainer = document.getElementById("products-container");
-        const searchInput = document.getElementById("search-input");
-        const clearSearchBtn = document.getElementById("clear-search-btn");
-        const categorySelect = document.getElementById("category-select");
-        const chips = document.querySelectorAll(".chip");
-        const sidebarBtns = document.querySelectorAll(".menu-item-btn");
-        const cartModal = document.getElementById("cart-modal");
-        const checkoutModal = document.getElementById("checkout-modal");
-        const openCartBtn = document.getElementById("open-cart-btn");
-        const closeCartBtn = document.getElementById("close-cart-btn");
-        const closeCheckoutBtn = document.getElementById("close-checkout-btn");
-        const cartItemsContainer = document.getElementById("cart-items-container");
-        const cartTotalPrice = document.getElementById("cart-total-price");
-        const cartCount = document.getElementById("cart-count");
-        const toast = document.getElementById("toast");
-        const toastMsg = document.getElementById("toast-msg");
+        const products = [
+            // FOOD
+            { id: 1, category: 'food', title: 'Artisanal Truffle Pasta Bowl', price: 24.99, rating: 4.9, reviews: 128, img: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&q=80' },
+            { id: 2, category: 'food', title: 'Gourmet Wagyu Beef Burger', price: 18.50, rating: 4.8, reviews: 210, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80' },
+            { id: 3, category: 'food', title: 'Fresh Sushi & Sashimi Platter', price: 32.00, rating: 4.9, reviews: 95, img: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80' },
+            
+            // ELECTRONICS
+            { id: 4, category: 'electronics', title: 'Wireless Noise-Canceling Headphones', price: 299.99, rating: 4.8, reviews: 450, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80' },
+            { id: 5, category: 'electronics', title: 'Smart Minimalist Watch Series 7', price: 199.50, rating: 4.7, reviews: 310, img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80' },
+            { id: 6, category: 'electronics', title: 'Portable RGB Bluetooth Speaker', price: 89.99, rating: 4.6, reviews: 180, img: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80' },
 
-        document.addEventListener("DOMContentLoaded", () => {
-            updateCategoryCounts();
+            // FASHION
+            { id: 7, category: 'fashion', title: 'Classic Urban Denim Jacket', price: 79.00, rating: 4.5, reviews: 88, img: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=600&q=80' },
+            { id: 8, category: 'fashion', title: 'Premium Leather Sneakers', price: 120.00, rating: 4.8, reviews: 142, img: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&q=80' },
+
+            // HOME
+            { id: 9, category: 'home', title: 'Minimalist Ceramic Vase Set', price: 45.00, rating: 4.7, reviews: 64, img: 'https://images.unsplash.com/photo-1612196808214-b7e239e5f6b7?w=600&q=80' },
+            { id: 10, category: 'home', title: 'Aromatic Essential Oil Diffuser', price: 34.99, rating: 4.6, reviews: 115, img: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80' },
+
+            // BEAUTY
+            { id: 11, category: 'beauty', title: 'Organic Hydrating Facial Serum', price: 48.00, rating: 4.9, reviews: 230, img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80' },
+
+            // SPORTS
+            { id: 12, category: 'sports', title: 'Non-Slip Eco-Friendly Yoga Mat', price: 39.99, rating: 4.8, reviews: 175, img: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&q=80' }
+        ];
+
+        /* =========================================================
+           APPLICATION STATE & VARIABLES
+        ========================================================= */
+        let currentLang = 'en';
+        let cart = [];
+        let wishlist = new Set();
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        /* =========================================================
+           DOM ELEMENTS
+        ========================================================= */
+        const productsArea = document.getElementById('products-area');
+        const emptyState = document.getElementById('empty-state');
+        const searchInput = document.getElementById('search-input');
+        const clearSearchBtn = document.getElementById('clear-search-btn');
+        const categorySelect = document.getElementById('category-select');
+        const langSelect = document.getElementById('lang-select');
+        const cartCount = document.getElementById('cart-count');
+        const cartModal = document.getElementById('cart-modal');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const openCartBtn = document.getElementById('open-cart-btn');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+        const closeCheckoutBtn = document.getElementById('close-checkout-btn');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const checkoutForm = document.getElementById('checkout-form');
+        const toast = document.getElementById('toast');
+
+        /* =========================================================
+           INITIALIZATION
+        ========================================================= */
+        function init() {
+            updateCounts();
             renderProducts();
             setupEventListeners();
-        });
-
-        function updateCategoryCounts() {
-            document.getElementById("count-all").textContent = productsData.length;
-            const counts = { food: 0, electronics: 0, fashion: 0, home: 0, beauty: 0, sports: 0 };
-            productsData.forEach(p => { if (counts[p.category] !== undefined) counts[p.category]++; });
-            for (let cat in counts) {
-                const el = document.getElementById(`count-${cat}`);
-                if (el) el.textContent = counts[cat];
-            }
+            updateLanguageUI();
         }
 
+        /* =========================================================
+           PRODUCTS & UI RENDERING
+        ========================================================= */
         function renderProducts() {
-            productsContainer.innerHTML = "";
-
-            const filtered = productsData.filter(item => {
-                const matchesCat = (currentCategory === "all" || item.category === currentCategory);
-                const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                      item.category.toLowerCase().includes(searchQuery.toLowerCase());
-                return matchesCat && matchesSearch;
-            });
-
-            if (filtered.length === 0) {
-                productsContainer.innerHTML = `
-                    <div class="empty-state" style="display:block;">
-                        <div class="empty-icon">🔍</div>
-                        <h3>No Products Found</h3>
-                        <p>Try searching for something else or change category filter.</p>
-                    </div>`;
-                return;
-            }
-
-            const categoriesToRender = currentCategory === "all" 
-                ? [...new Set(filtered.map(item => item.category))]
+            productsArea.innerHTML = '';
+            
+            const categoriesToRender = currentCategory === 'all' 
+                ? ['food', 'electronics', 'fashion', 'home', 'beauty', 'sports'] 
                 : [currentCategory];
 
-            categoriesToRender.forEach(cat => {
-                const catItems = filtered.filter(item => item.category === cat);
-                if (catItems.length === 0) return;
+            let totalVisibleProducts = 0;
 
-                const section = document.createElement("div");
-                section.className = "category-section-block";
-                section.id = `section-${cat}`;
+            categoriesToRender.forEach(catKey => {
+                const filtered = products.filter(p => p.category === catKey && p.title.toLowerCase().includes(searchQuery.toLowerCase()));
+                
+                if (filtered.length > 0) {
+                    totalVisibleProducts += filtered.length;
 
-                const header = document.createElement("div");
-                header.className = "category-section-header";
-                header.innerHTML = `
-                    <h2 class="category-section-title">
-                        ${categoryLabels[cat] || cat}
-                    </h2>
-                    <span class="category-badge-count">${catItems.length} items</span>
-                `;
+                    const section = document.createElement('div');
+                    section.className = 'category-section-block';
+                    section.id = `section-${catKey}`;
 
-                const grid = document.createElement("div");
-                grid.className = "category-items-grid";
+                    const catTitleText = translations[currentLang][`${catKey}Category`] || catKey;
 
-                catItems.forEach(item => {
-                    const card = document.createElement("div");
-                    card.className = "product-card";
-                    const isLiked = favorites.has(item.id);
-
-                    card.innerHTML = `
-                        <div class="image-frame">
-                            <span class="badge badge-${item.category}">${item.category}</span>
-                            <button class="like-btn ${isLiked ? 'active' : ''}" onclick="toggleLike(${item.id})">
-                                ${isLiked ? '❤️' : '🤍'}
-                            </button>
-                            <img src="${item.image}" alt="${item.name}">
+                    section.innerHTML = `
+                        <div class="category-section-header">
+                            <h2 class="category-section-title">
+                                ${getCategoryIcon(catKey)} ${catTitleText}
+                            </h2>
+                            <span class="category-badge-count">${filtered.length} items</span>
                         </div>
-                        <div class="item-details">
-                            <h3 class="item-title">${item.name}</h3>
-                            <div class="item-rating">
-                                ★ ${item.rating} <span>(${item.reviews})</span>
-                            </div>
-                            <div class="item-price">$${item.price.toFixed(2)}</div>
-                            <div class="action-row">
-                                <button class="btn btn-add-cart" onclick="addToCart(${item.id})">
-                                    🛒 Add
-                                </button>
-                                <button class="btn btn-buy-now" onclick="buyNow(${item.id})">
-                                    ⚡ Buy Now
-                                </button>
-                            </div>
+                        <div class="category-items-grid">
+                            ${filtered.map(item => createProductCardHTML(item)).join('')}
                         </div>
                     `;
-                    grid.appendChild(card);
-                });
 
-                section.appendChild(header);
-                section.appendChild(grid);
-                productsContainer.appendChild(section);
+                    productsArea.appendChild(section);
+                }
             });
-        }
 
-        function toggleLike(id) {
-            if (favorites.has(id)) {
-                favorites.delete(id);
-                showToast("Removed from Wishlist", "🤍");
+            if (totalVisibleProducts === 0) {
+                emptyState.style.display = 'block';
             } else {
-                favorites.add(id);
-                showToast("Added to Wishlist!", "❤️");
+                emptyState.style.display = 'none';
             }
-            renderProducts();
         }
 
-        function addToCart(id) {
-            const item = productsData.find(p => p.id === id);
-            if (!item) return;
+        function createProductCardHTML(item) {
+            const isLiked = wishlist.has(item.id);
+            const t = translations[currentLang];
 
-            const existing = cart.find(c => c.id === id);
-            if (existing) {
-                existing.qty++;
-            } else {
-                cart.push({ ...item, qty: 1 });
-            }
-
-            updateCartUI();
-            showToast(`${item.name} added to cart!`, "🛒");
-        }
-
-        function buyNow(id) {
-            addToCart(id);
-            openCheckout();
-        }
-
-        function updateCartUI() {
-            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-            cartCount.textContent = totalCount;
-
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `<div class="cart-empty-box">Your cart is currently empty.</div>`;
-                cartTotalPrice.textContent = "$0.00";
-                return;
-            }
-
-            cartItemsContainer.innerHTML = "";
-            let total = 0;
-
-            cart.forEach(item => {
-                const itemTotal = item.price * item.qty;
-                total += itemTotal;
-
-                const row = document.createElement("div");
-                row.className = "cart-row";
-                row.innerHTML = `
-                    <div class="cart-thumb">
-                        <img src="${item.image}" alt="${item.name}">
+            return `
+                <div class="product-card" data-id="${item.id}">
+                    <div class="image-frame">
+                        <span class="badge badge-${item.category}">${t[`${item.category}Category`] || item.category}</span>
+                        <button class="like-btn ${isLiked ? 'active' : ''}" onclick="toggleLike(${item.id})">♥</button>
+                        <img src="${item.img}" alt="${item.title}">
                     </div>
-                    <div>
-                        <div class="cart-item-title">${item.name}</div>
-                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                        <div class="qty-controls">
-                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
-                            <span>${item.qty}</span>
-                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                    <div class="item-details">
+                        <div class="item-title">${item.title}</div>
+                        <div class="item-rating">★ ${item.rating} <span>(${item.reviews})</span></div>
+                        <div class="item-price">$${item.price.toFixed(2)}</div>
+                        <div class="action-row">
+                            <button class="btn btn-add-cart" onclick="addToCart(${item.id})">
+                                🛒 ${t.addToCart}
+                            </button>
+                            <button class="btn btn-buy-now" onclick="quickBuy(${item.id})">
+                                ⚡ ${t.buyNow}
+                            </button>
                         </div>
                     </div>
-                    <div style="font-weight: 800;">
-                        $${itemTotal.toFixed(2)}
-                    </div>
-                `;
-                cartItemsContainer.appendChild(row);
-            });
-
-            cartTotalPrice.textContent = `$${total.toFixed(2)}`;
+                </div>
+            `;
         }
 
-        function changeQty(id, delta) {
-            const item = cart.find(c => c.id === id);
-            if (!item) return;
+        function getCategoryIcon(cat) {
+            const icons = { food: '🍔', electronics: '🎧', fashion: '👔', home: '🏠', beauty: '✨', sports: '⚽' };
+            return icons[cat] || '📦';
+        }
 
-            item.qty += delta;
-            if (item.qty <= 0) {
-                cart = cart.filter(c => c.id !== id);
+        function updateCounts() {
+            const categories = ['all', 'food', 'electronics', 'fashion', 'home', 'beauty', 'sports'];
+            categories.forEach(cat => {
+                const countElem = document.getElementById(`count-${cat}`);
+                if (countElem) {
+                    if (cat === 'all') {
+                        countElem.innerText = products.length;
+                    } else {
+                        countElem.innerText = products.filter(p => p.category === cat).length;
+                    }
+                }
+            });
+        }
+
+        /* =========================================================
+           CART & WISHLIST INTERACTIONS
+        ========================================================= */
+        window.addToCart = function(id) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                const product = products.find(p => p.id === id);
+                cart.push({ ...product, qty: 1 });
             }
+            updateCartUI();
+            showToast(translations[currentLang].addedToast);
+        };
+
+        window.quickBuy = function(id) {
+            addToCart(id);
+            openCartModal();
+        };
+
+        window.toggleLike = function(id) {
+            if (wishlist.has(id)) {
+                wishlist.delete(id);
+            } else {
+                wishlist.add(id);
+            }
+            renderProducts();
+        };
+
+        function updateCartUI() {
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCount.innerText = totalQty;
+
+            const cartItemsList = document.getElementById('cart-items-list');
+            const cartTotalPrice = document.getElementById('cart-total-price');
+            const t = translations[currentLang];
+
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = `<div class="cart-empty-box">${t.emptyCart}</div>`;
+                cartTotalPrice.innerText = '$0.00';
+                checkoutBtn.disabled = true;
+                checkoutBtn.style.opacity = '0.5';
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+            checkoutBtn.style.opacity = '1';
+
+            let total = 0;
+            cartItemsList.innerHTML = cart.map((item, index) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                return `
+                    <div class="cart-row">
+                        <div class="cart-thumb">
+                            <img src="${item.img}" alt="${item.title}">
+                        </div>
+                        <div>
+                            <div class="cart-item-title">${item.title}</div>
+                            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                                <span style="font-size:13px; font-weight:700;">${item.qty}</span>
+                                <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                            </div>
+                        </div>
+                        <button style="background:none; border:none; color:#ef4444; font-size:16px; cursor:pointer;" onclick="removeItem(${index})">🗑</button>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotalPrice.innerText = `$${total.toFixed(2)}`;
+        }
+
+        window.changeQty = function(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        };
+
+        window.removeItem = function(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        };
+
+        function showToast(msg) {
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        /* =========================================================
+           LANGUAGE TRANSLATION LOGIC
+        ========================================================= */
+        function updateLanguageUI() {
+            const t = translations[currentLang];
+
+            document.getElementById('nav-store-title').innerText = t.storeTitle;
+            document.getElementById('lang-label').innerText = t.langLabel;
+            document.getElementById('cart-btn-text').innerText = t.cartBtn;
+            document.getElementById('hero-tag').innerText = t.heroTag;
+            document.getElementById('hero-title').innerHTML = t.heroTitle;
+            document.getElementById('hero-desc').innerText = t.heroDesc;
+            searchInput.placeholder = t.searchPlaceholder;
+            document.getElementById('sidebar-title').innerText = t.menuTitle;
+
+            // Labels for categories
+            document.querySelectorAll('.cat-label').forEach(el => {
+                const parent = el.closest('[data-target]');
+                if (parent) {
+                    const key = parent.getAttribute('data-target');
+                    if (key === 'all') el.innerText = t.allCategories;
+                    else el.innerText = t[key + 'Category'] || key;
+                }
+            });
+
+            document.getElementById('cart-modal-title').innerText = t.cartTitle;
+            document.getElementById('total-label').innerText = t.total;
+            document.getElementById('checkout-btn').innerText = t.checkout;
+            document.getElementById('checkout-modal-title').innerText = t.checkoutTitle;
+            document.getElementById('lbl-name').innerText = t.name;
+            document.getElementById('lbl-email').innerText = t.email;
+            document.getElementById('lbl-address').innerText = t.address;
+            document.querySelector('#checkout-form button').innerText = t.confirmPay;
+            document.getElementById('empty-title').innerText = t.noProducts;
+            document.getElementById('empty-desc').innerText = t.noProductsDesc;
+
+            renderProducts();
             updateCartUI();
         }
 
-        function showToast(msg, icon = "🛒") {
-            toastMsg.textContent = msg;
-            document.getElementById("toast-icon").textContent = icon;
-            toast.classList.add("show");
-            setTimeout(() => toast.classList.remove("show"), 2500);
-        }
-
+        /* =========================================================
+           EVENT LISTENERS & FILTERING
+        ========================================================= */
         function setupEventListeners() {
-            searchInput.addEventListener("input", (e) => {
+            // Language Select
+            langSelect.addEventListener('change', (e) => {
+                currentLang = e.target.value;
+                updateLanguageUI();
+            });
+
+            // Search Input
+            searchInput.addEventListener('input', (e) => {
                 searchQuery = e.target.value.trim();
-                clearSearchBtn.style.display = searchQuery ? "flex" : "none";
+                clearSearchBtn.style.display = searchQuery ? 'flex' : 'none';
                 renderProducts();
             });
 
-            clearSearchBtn.addEventListener("click", () => {
-                searchInput.value = "";
-                searchQuery = "";
-                clearSearchBtn.style.display = "none";
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                searchQuery = '';
+                clearSearchBtn.style.display = 'none';
                 renderProducts();
             });
 
-            categorySelect.addEventListener("change", (e) => {
-                setActiveCategory(e.target.value);
+            // Category Filter via Dropdown
+            categorySelect.addEventListener('change', (e) => {
+                setCategory(e.target.value);
             });
 
-            chips.forEach(chip => {
-                chip.addEventListener("click", () => {
-                    const cat = chip.dataset.category;
-                    setActiveCategory(cat);
+            // Category Filter via Chips & Sidebar
+            document.querySelectorAll('.chip, .menu-item-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const cat = btn.getAttribute('data-category') || btn.getAttribute('data-target');
+                    if (cat) setCategory(cat);
                 });
             });
 
-            sidebarBtns.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const cat = btn.dataset.target;
-                    setActiveCategory(cat);
-                });
+            // Modals
+            openCartBtn.addEventListener('click', openCartModal);
+            closeCartBtn.addEventListener('click', closeCartModal);
+            closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
+
+            checkoutBtn.addEventListener('click', () => {
+                closeCartModal();
+                checkoutModal.style.display = 'flex';
             });
 
-            openCartBtn.addEventListener("click", () => cartModal.style.display = "flex");
-            closeCartBtn.addEventListener("click", () => cartModal.style.display = "none");
-            closeCheckoutBtn.addEventListener("click", () => checkoutModal.style.display = "none");
-            
-            document.getElementById("checkout-btn").addEventListener("click", () => {
-                cartModal.style.display = "none";
-                openCheckout();
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert(translations[currentLang].orderSuccess);
+                cart = [];
+                updateCartUI();
+                closeCheckoutModal();
             });
         }
 
-        function setActiveCategory(cat) {
+        function setCategory(cat) {
             currentCategory = cat;
+
+            // Update UI selections
             categorySelect.value = cat;
 
-            chips.forEach(c => {
-                if (c.dataset.category === cat) c.classList.add("active");
-                else c.classList.remove("active");
+            document.querySelectorAll('.chip').forEach(c => {
+                c.classList.toggle('active', c.getAttribute('data-category') === cat);
             });
 
-            sidebarBtns.forEach(b => {
-                if (b.dataset.target === cat) b.classList.add("active");
-                else b.classList.remove("active");
+            document.querySelectorAll('.menu-item-btn').forEach(m => {
+                m.classList.toggle('active', m.getAttribute('data-target') === cat);
             });
 
             renderProducts();
         }
 
-        function openCheckout() {
-            if (cart.length === 0) {
-                showToast("Cart is empty!", "⚠️");
-                return;
-            }
-            checkoutModal.style.display = "flex";
+        function openCartModal() {
+            updateCartUI();
+            cartModal.style.display = 'flex';
         }
 
-        function handleCheckoutSubmit(e) {
-            e.preventDefault();
-            checkoutModal.style.display = "none";
-            cart = [];
-            updateCartUI();
-            showToast("Order placed successfully! 🎉", "✅");
+        function closeCartModal() {
+            cartModal.style.display = 'none';
         }
+
+        function closeCheckoutModal() {
+            checkoutModal.style.display = 'none';
+        }
+
+        // Run application on load
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 
